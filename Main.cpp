@@ -2,6 +2,14 @@
 #include "Book.h"
 #include "Database.h"
 
+void displayMenu()
+{
+    std::cout << "Welcome to the Book Database!" << std::endl;
+    std::cout << "1. Search books by author" << std::endl;
+    std::cout << "2. Display all books" << std::endl;
+    std::cout << "3. Exit" << std::endl;
+    std::cout << "Enter your choice: ";
+}
 
 int main()
 {
