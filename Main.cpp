@@ -2,6 +2,12 @@
 #include "Book.h"
 #include "Database.h"
 
+#ifdef _WIN32
+    #define CLEAR_SCREEN "cls"
+#else
+    #define CLEAR_SCREEN "clear"
+#endif
+
 void displayMenu()
 {
     std::cout << "Welcome to the Book Database!" << std::endl;
@@ -23,6 +29,7 @@ int main()
     Book book5("The Idiot", "Fyodor Dostoevsky", 150);
     Book book6("Hamlet", "William Shakespeare", 150);
     Book book7("All Quiet on the Western Front", "Erich Maria Remarque", 350);
+    Book book8("Crime and Punishment", "Fyodor Dostoevsky", 350);
 
     userDatabase.addBook(book1);
     userDatabase.addBook(book2);
@@ -31,12 +38,50 @@ int main()
     userDatabase.addBook(book5);
     userDatabase.addBook(book6);
     userDatabase.addBook(book7);
+    userDatabase.addBook(book8);
     
-    userDatabase.searchByAuthor("Fyodor Dostoevsky");
+    int choice = 0;
+    while (choice != 3)
+    {
+        displayMenu();
+        std::cin >> choice;
 
-    // Print the desired book
-    //userDatabase.printDatabase();
-    
+        switch (choice)
+        {
+            case 1:
+            {
+                //Search books by author
+                std::string author;
+                std::cout << "Enter the author's name: ";
+                std::cin.ignore();
+                std::getline(std::cin, author);
+                //Clear screan before printing books
+                system(CLEAR_SCREEN);
+                userDatabase.searchByAuthor(author);
+                break;
+            }
+            case 2:
+            {
+                //Clear screan before printing books
+                system(CLEAR_SCREEN);
+                //Display all books in database
+                userDatabase.printDatabase();
+                break;
+            }
+            case 3:
+            {
+                //Exit the program
+                std::cout << "Exiting the program..." << std::endl;
+                break;
+            }
+            default:
+            {
+                //Invalid choice
+                std::cout << "Invalid choice." << std::endl;
+                break;
+            }
+        }
+    }
 
     return 0;
 }
